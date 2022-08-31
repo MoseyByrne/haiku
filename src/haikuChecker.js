@@ -28,6 +28,35 @@ const counterFunction = () => {
 
 const incrementer = counterFunction();
 
+// const poem = ["line one", "line two", "line three"]
+export const haikuChecker = (poem) => {
+  const counter = incrementer();
+  if (counter == 4){
+    // more than three lines
+    if (poem[counter]) {
+      return false;
+    } else {
+      return true;
+    }
+  } else if (counter == 1 || counter == 3) {
+    const lineArr = splitLine(poem[counter]);
+    if (lineChecker(lineArr) != 5) {
+      return false;
+    } else {
+      return haikuChecker(poem);
+    } 
+  } else if (counter == 2) {
+    const lineArr = splitLine(poem[counter]);
+    if (lineChecker(lineArr) != 7) {
+      return false;
+    } else {
+      return haikuChecker(poem);
+    }
+  } else {
+    return false;
+  }
+};
+
 export const splitLine = (line) => {
   return line.split(" ");
 };
@@ -52,7 +81,8 @@ export const getNumberOfSyllables = (word) => {
     word[word.length - 1].toLowerCase() == "e" && 
     word[word.length - 2].toLowerCase() != "l" 
   ){
-    return edgeCaseNum + word.match(/[aeiouy]+/gi).length - 1; // "x+" matches the preceding item "x" 1 or more times ie candy and caaaaaandy both return 1 for "/a+/" ("caaaaaandy").match(/a+/).length = 1
+    return edgeCaseNum + word.match(/[aeiouy]+/gi).length - 1; 
+    // "x+" matches the preceding item "x" 1 or more times ie candy and caaaaaandy both return 1 for "/a+/" ("caaaaaandy").match(/a+/).length = 1
     //("caanaaadaa").match(/a+/).length = 3
   } else {
     return edgeCaseNum + word.match(/[aeiouy]+/gi).length;
